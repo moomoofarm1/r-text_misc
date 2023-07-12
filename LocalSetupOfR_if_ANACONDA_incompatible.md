@@ -38,8 +38,8 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 8. Install R;
 
 # Further to setup the text package in R
-1. Run R code: install.packages(c("devtools", "reticulate"));
-2. Run R code: reticulate::install_miniconda(force=TRUE);
+1. Run R code: install.packages(c("devtools", "reticulate"))
+2. Run R code: reticulate::install_miniconda(force=TRUE)
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9")
 4. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("torch"), pip=TRUE)
 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("NLTK", "transformers"))
