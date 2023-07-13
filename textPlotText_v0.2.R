@@ -70,6 +70,11 @@ sentsMarker_rowWise <- function(theStr){
 sentsMarker <- function(aTibble){
 
     if (FALSE){
+        reticulate::conda_install(envname="textrpp_condaenv", 
+        c("sentencepiece", "protobuf"))
+    }
+    
+    if (FALSE){
         reticulate::source_python(system.file("python",
         "fullStopCorrt.py",
         #envir = "",
