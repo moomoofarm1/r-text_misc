@@ -1,5 +1,5 @@
 ---
-title: "toLeon_PlotFuncs"
+title: "example PlotFuncs"
 author: "AlexGu at Lund University"
 date: "`r Sys.Date()`"
 output:
