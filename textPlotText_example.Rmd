@@ -1,6 +1,6 @@
 ---
 title: "toLeon_PlotFuncs"
-author: "Zhuojun(Alex) Gu"
+author: "AlexGu at Lund University"
 date: "`r Sys.Date()`"
 output:
   rmdformats::readthedown:
