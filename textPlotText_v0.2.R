@@ -70,14 +70,9 @@ sentsMarker_rowWise <- function(theStr){
 sentsMarker <- function(aTibble){
 
     if (FALSE){
-        reticulate::conda_install(envname="textrpp_condaenv", 
-        c("sentencepiece", "protobuf"))
-    }
-    
-    if (FALSE){
         reticulate::source_python(system.file("python",
-        "fullStopCorrt.py",
-        #envir = "",
+        "fullStopCorrt_copy.py",
+        envir = "textrpp_condaenv",
         package = "text",
         convert = TRUE,
         mustWork = TRUE
@@ -454,7 +449,7 @@ getTokensTb <- function(aTibble,
             getTokenTb_eleWise
         )
     }else{
-        tokensTb <- aTibble[["tokens"]][["texts"]][[1]]
+        tokensTb <- aTibble[["tokens"]][[1]][[1]]
     }
     tokensTb <- tokensTb %>% dplyr::filter(tokens!=CLSSEP$CLS)
     tokensTb <- tokensTb %>% dplyr::filter(tokens!=CLSSEP$SEP)
@@ -824,19 +819,19 @@ langTrain <- function(trainObj, x, lang_level="all", tokenizers, modelName){
 #' @param modelName (str) The transformer model in use.
 #' @returen The prediction of tokens.
 #' @NoRd
-langPred_tokens <- function(predObj, tokensModel, modelName){
+langPred_tokens <- function(predObj, tokensModel, tokenizers, modelName){
     
     # output the irregular tokens in LLMs.
     if (TRUE){
-        predObj[["tokens"]][["texts"]][[1]] <- predObj %>%
+        predObj[["tokens"]][[1]][[1]] <- predObj %>%
           getTokensTb(., x = NULL, tokenizers, modelName) %>% tibble::as_tibble()
     }
 
     tokensPred <- text::textPredict(tokensModel, 
-      predObj[["tokens"]][["texts"]][[1]][,2:ncol(predObj[["tokens"]][["texts"]][[1]])])
+      predObj[["tokens"]][[1]][[1]][,2:ncol(predObj[["tokens"]][[1]][[1]])])
     tokensPred <- tokensPred %>% tibble::as_tibble()
     colnames(tokensPred)[1] <- c("y_pred")
-    tokensPred <- cbind(tokensPred, predObj[["tokens"]][["texts"]][[1]])
+    tokensPred <- cbind(tokensPred, predObj[["tokens"]][[1]][[1]])
     return (tokensPred)
 }
 #' langPred_sents
@@ -862,7 +857,7 @@ langPred_sents <- function(predObj, sentsModel){
 langPred_paras <- function(predObj, parasModel){
 
     parasPred <- text::textPredict(parasModel,
-        predObj[["texts"]][["texts"]],
+        predObj[[3]][[1]], # 3 = paragraph, labeled texts
         dim_names=FALSE)
 
     return(parasPred)    
@@ -901,7 +896,7 @@ langPred <- function(predObj, theModels, lang_level = "sentence", tokenizers, mo
         
         # future::future
         predTokens <- future::future({
-            predObj %>% langPred_tokens(., theModels[["modelTokens"]], modelName) %>% tibble::as_tibble()
+            predObj %>% langPred_tokens(., theModels[["modelTokens"]], tokenizers, modelName) %>% tibble::as_tibble()
         }, seed=NULL)
         predSents <- future::future({
             predObj %>% langPred_sents(., theModels[["modelSents"]]) %>% tibble::as_tibble()
@@ -1587,7 +1582,7 @@ cusPlotText <- function(embedObj, cusColVec=NULL, mode="HSL", restore=FALSE, mod
     end <- nrow(embedObj[["Pred"]][["predTokens"]]) + nrow(embedObj[["Pred"]][["predSents"]])
     coloredTb[start:end, 2:3] <- embedObj[["Pred"]][["predSents"]][, 2:3]
     coloredTb[start:end, 4] <- "sents"
-    coloredTb[nrow(coloredTb), 2] <- embedObj[["Pred"]][["predParas"]][[2]][1]
+    coloredTb[nrow(coloredTb), 2] <- embedObj[["Pred"]][["predParas"]][[3]]
     coloredTb[nrow(coloredTb), 3] <- "Lorem Ipsum"
     coloredTb[nrow(coloredTb), 4] <- "paras"
     coloredTb <- coloredTb %>% tibble::rowid_to_column(., "ID")
