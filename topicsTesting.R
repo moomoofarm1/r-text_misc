@@ -116,12 +116,12 @@ extract_topic_stats_corr <- function(topics_stats, cal_cohen_d = FALSE) {
     if (cal_cohen_d) {
       effect_size <- cohen.d(topic$statistic, df)$estimate
     } else {
-      effect_size <- NA
+      effect_size <- "not_available"
     }
     
     return(tibble::tibble("topic_name" = name, "df" = df, "p.value" = p_value, "estimate_corr" = estimate, 
                           "conf.int_lower" = conf_int_lower, "conf.int_higher" = conf_int_higher,
-                          "effect_size" = effect_size))
+                          "cohen_d" = effect_size))
   }
   
   # Use purrr::pmap_dfr to apply the function to each topic in the list and return a tibble
@@ -159,7 +159,7 @@ topics_t_test_grouping <- function(topics_loadings,
     
     # Adjust p-value if more than two categories
     groupings <- unique(topics_loadings$value)
-    if (length(groupings) > 2) {
+    if (length(groupings) > 1) {
       results <- map(results, ~ c(.x, adjust.p.value = stats::p.adjust(.x$t_test$p.value, 
                                                                        method = method1,
                                                                        n = length(groupings))))
@@ -224,14 +224,15 @@ extract_topic_stats_cate <- function(topics_stats, cal_cohen_d = TRUE) {
     }
     
     return(tibble::tibble("topic_name" = name1, 
-                          "t_stats" = t_stats,
-                          "df" = df, "p.value" = p_value,
-                          "p_conf.int_lower" = conf_int_lower, 
-                          "p_conf.int_higher" = conf_int_higher,
+                          "p.value" = p_value,
                           "adjusted_p.value" = adjust_p_value,
+                          "cohen_d" = eff_size,
                           "mean_group_1" = mean_1, 
                           "mean_group_2" = mean_2,
-                          "cohen_d" = eff_size,
+                          "t_stats" = t_stats,
+                          "df" = df, 
+                          "p_conf.int_lower" = conf_int_lower, 
+                          "p_conf.int_higher" = conf_int_higher,
                           "cohen_d_conf.int_lower" = eff_size_conf_lower,
                           "cohen_d_conf.int_higher" = eff_size_conf_higher)) 
   }
@@ -251,15 +252,20 @@ extract_topic_stats_cate <- function(topics_stats, cal_cohen_d = TRUE) {
 #' @return a sorted tibble
 #' @noRd
 sort_stats_tibble <- function(df) {
-  # Check if 'adjusted_p.value' is numeric
-  if (is.numeric(df$adjusted_p.value)) {
-    # Sort by 'p.value' and 'adjusted_p.value'
-    df <- df %>% dplyr::arrange(p.value, adjusted_p.value)
+  # Check if 'adjusted_p.value' column exists
+  if ("adjusted_p.value" %in% colnames(df)) {
+    # If it exists, check if it's numeric
+    if (is.numeric(df$adjusted_p.value)) {
+      # Sort by 'p.value' and 'adjusted_p.value'
+      df <- df %>% dplyr::arrange(p.value, adjusted_p.value)
+    } else {
+      # If it's not numeric, sort by 'p.value' only
+      df <- df %>% dplyr::arrange(p.value)
+    }
   } else {
-    # Sort by 'p.value' only
+    # If 'adjusted_p.value' column doesn't exist, sort by 'p.value' only
     df <- df %>% dplyr::arrange(p.value)
   }
-  
   return(df)
 }
 
@@ -270,7 +276,7 @@ sort_stats_tibble <- function(df) {
 #' @param split (string) How to split the CONTINUOUS test_values for testing
 #' @param n_min_max (integer) If split = "min_max", the number of records to test per group.
 #' @param multiple_comparison (string) The p-correction method
-#' @importFrom dplyr select
+#' @importFrom dplyr select everything
 #' @return Results
 topic_test <- function(
     topics_loadings,
@@ -363,6 +369,19 @@ topic_test <- function(
                                      colnames(topics_loadings)[2:ncol(topics_loadings)])
       # Change the output of a list to a tibble. For corr only now.
       output <- extract_topic_stats_corr(result)
+      names(output)[1] <- c("topic_name")
+      output <- dplyr::left_join(output, topic_terms, 
+                                 by = join_by(topic_name == topic))
+      
+      output <- output %>%
+        dplyr::select(
+          topic_name, 
+          p.value,
+          top_terms,
+          prevalence,
+          coherence,
+          dplyr::everything()  # this will include the rest of the columns in their original order
+        )
     }
     
     return (output %>% sort_stats_tibble())
@@ -374,11 +393,27 @@ topic_test <- function(
     temp <- NULL
     result <- topics_t_test_grouping(topics_loadings, 
                                      "bonferroni")
-    # TBD
+    # Produce the topic list through the pairs of categories
     output_list <- purrr::map(names(result), function(name) {
       output <- extract_topic_stats_cate(result[[name]])
       names(output)[1] <- c("topic_name")
-      output <- dplyr::left_join(output, topic_terms, by = join_by(topic_name == topic))
+      output <- dplyr::left_join(output, topic_terms, 
+                                 by = join_by(topic_name == topic))
+      output <- output %>%
+        dplyr::select(
+          topic_name, 
+          p.value, 
+          adjusted_p.value, 
+          cohen_d, 
+          top_terms,
+          label.label_1,
+          label.label_2,
+          prevalence,
+          coherence,
+          mean_group_1,
+          mean_group_2,
+          dplyr::everything()  # this will include the rest of the columns in their original order
+        )
       output <- sort_stats_tibble(output)
       return(output)
     })
