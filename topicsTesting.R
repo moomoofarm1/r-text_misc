@@ -77,18 +77,26 @@ corr_topic_wise <- function(topics_loadings,
 #' @param topic_loadings (tibble) The initial tibble
 #' @param grouping1 (string) The name of the grouping variable
 #' @param colnames (vector) The vector of the topic names
+#' @param method1 (string) The method to adjust the p value
 #' @importFrom purrr pmap
 #' @return a named list of testing results
 #' @noRd
 topics_corr_grouping <- function(topics_loadings,
                                      grouping1,
-                                     colnames1) {
+                                     colnames1,
+                                     method1="bonferroni") {
   topics_stats <- purrr::pmap(list(
     list(topics_loadings),
     grouping1,
     colnames1), 
     corr_topic_wise)
   names(topics_stats) <- colnames1
+  
+  topics_stats <- map(topics_stats, 
+              ~ c(.x, adjust.p.value = stats::p.adjust(
+                .x$p.value, 
+                method = method1,
+                n = length(topics_loadings))))
   return(topics_stats)
 }
 
@@ -109,6 +117,7 @@ extract_topic_stats_corr <- function(topics_stats, cal_cohen_d = FALSE) {
     df <- topic$parameter["df"]
     p_value <- topic$p.value
     estimate <- topic$estimate["cor"]
+    adjust.p_value <- topic$adjust.p.value
     conf_int_lower <- topic$conf.int[1]
     conf_int_higher <- topic$conf.int[2]
     
@@ -119,7 +128,9 @@ extract_topic_stats_corr <- function(topics_stats, cal_cohen_d = FALSE) {
       effect_size <- "not_available"
     }
     
-    return(tibble::tibble("topic_name" = name, "df" = df, "p.value" = p_value, "estimate_corr" = estimate, 
+    return(tibble::tibble("topic_name" = name, "df" = df, "p.value" = p_value, 
+                          "adjust.p_value" = adjust.p_value,
+                          "estimate_corr" = estimate, 
                           "conf.int_lower" = conf_int_lower, "conf.int_higher" = conf_int_higher,
                           "cohen_d" = effect_size))
   }
@@ -160,9 +171,10 @@ topics_t_test_grouping <- function(topics_loadings,
     # Adjust p-value if more than two categories
     groupings <- unique(topics_loadings$value)
     if (length(groupings) > 1) {
-      results <- map(results, ~ c(.x, adjust.p.value = stats::p.adjust(.x$t_test$p.value, 
-                                                                       method = method1,
-                                                                       n = length(groupings))))
+      results <- map(results, ~ c(.x, adjust.p.value = stats::p.adjust(
+        .x$t_test$p.value, 
+        method = method1,
+        n = length(groupings))))
     } else {
       # Return "not_available" if a group has only one observation
       results <- map(results, ~ c(.x, adjust.p.value = "not_available"))
@@ -366,7 +378,8 @@ topic_test <- function(
       temp <- NULL
       result <- topics_corr_grouping(topics_loadings,
                                      colnames(topics_loadings)[1],
-                                     colnames(topics_loadings)[2:ncol(topics_loadings)])
+                                     colnames(topics_loadings)[2:ncol(topics_loadings)],
+                                     method1 = multiple_comparison)
       # Change the output of a list to a tibble. For corr only now.
       output <- extract_topic_stats_corr(result)
       names(output)[1] <- c("topic_name")
@@ -377,6 +390,7 @@ topic_test <- function(
         dplyr::select(
           topic_name, 
           p.value,
+          adjust.p_value,
           top_terms,
           prevalence,
           coherence,
