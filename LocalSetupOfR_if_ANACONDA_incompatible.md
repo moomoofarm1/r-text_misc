@@ -48,4 +48,4 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
 (May work or not. DONT TRY) Or run R code in the terminal: Rscript -e 'library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")'
-3. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("tokenizers==0.13.1"), pip=TRUE) 
+3. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("tokenizers==0.13.1"), pip=TRUE)  # Due to that some python packages require tokenizers version < 0.14.0. Might change in the future.
