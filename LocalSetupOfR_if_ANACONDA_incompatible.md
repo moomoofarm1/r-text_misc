@@ -44,3 +44,8 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 4. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("torch"), pip=TRUE)
 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("NLTK", "transformers"))
 6. Run R code: devtools::install_github("oscarkjell/text")
+
+# Further to remove some packages, like tokeinzers, if there are version clashes.
+1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
+(May work or not. DONT TRY) Or run R code in the terminal: Rscript -e 'library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")'
+3. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("tokenizers==0.13.1"), pip=TRUE) 
