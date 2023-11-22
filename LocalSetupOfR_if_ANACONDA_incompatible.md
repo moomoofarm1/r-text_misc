@@ -33,7 +33,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 ```
 
 5. Uninstall R;
-6. Delete the R folder and the folder in reticulate::miniconda_path() (/Users/macID/Library/r-miniconda-arm64) in the Library (Mac only, in the terminal, with admin privacy)
+6. Delete miniconda folder in reticulate::miniconda_path() (/Users/macID/Library/r-miniconda-arm64) in the Library (Mac only, in the terminal, with admin privacy)
 7. Delete the R folder "/Library/Frameworks/R.framework" (in Mac).
 8. Install R;
 
