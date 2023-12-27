@@ -1,7 +1,7 @@
 ---
 title: "LocalSetupOfR_if_ANACONDA_incompatible.md"
 output: html_document
-date: "2023-04-11"
+date: "2023-12-27"
 ---
 
 # Due to the incompatibility between miniconda and Anaconda, one has to uninstall all modules to reset the system.
