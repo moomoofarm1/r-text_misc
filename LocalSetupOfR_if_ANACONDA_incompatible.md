@@ -38,6 +38,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 8. Install R;
 
 # Further to setup the text package in R
+[python version list]<https://github.com/moomoofarm1/textPlot/blob/master/R/0_0_text_install.R>
 1. Run R code: install.packages(c("devtools", "reticulate"))
 2. Run R code: reticulate::install_miniconda(force=TRUE)
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9") 
