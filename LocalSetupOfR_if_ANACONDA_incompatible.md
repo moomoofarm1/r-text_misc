@@ -43,8 +43,25 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 2. Run R code: reticulate::install_miniconda(force=TRUE)
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9") 
 4. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("torch==2.0.0", "flair==0.13.0"), pip=TRUE)
-5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("NLTK", "scikit-learn","pandas", "transformers==4.36.0", "evaluate","accelerate"))
-6. Run R code: devtools::install_github("oscarkjell/text")
+5. Run R code:
+   rpp_version <- c(
+  "transformers==4.36.0",
+  "huggingface_hub==0.20.0",
+  "numpy==1.26.0",
+  "pandas==2.0.3",
+  "nltk==3.6.7",
+  "scikit-learn==1.3.0",
+  "datasets==2.16.1",
+  "evaluate==0.4.0",
+  "accelerate==0.26.0",
+  "bertopic==0.16.0",
+  "jsonschema==4.19.2",
+  "sentence-transformers==2.2.2",
+  "umap-learn==0.5.4",
+  "hdbscan==0.8.33"
+  )
+7. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
+8. Run R code: devtools::install_github("oscarkjell/text")
 
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
