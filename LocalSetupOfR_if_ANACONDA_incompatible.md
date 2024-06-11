@@ -36,6 +36,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 6. Delete miniconda folder in reticulate::miniconda_path() (/Users/macID/Library/r-miniconda-arm64) in the Library (Mac only, in the terminal, with admin privacy)
 7. Delete the R folder "/Library/Frameworks/R.framework" (in Mac).
 8. Install R;
+9. Alternative to all above due to the python virtual env issues, just run R code: reticulate::conda_remove("textrpp_condaenv")
 
 # Further to setup the text package in R
 [python version list](https://github.com/moomoofarm1/textPlot/blob/master/R/0_0_text_install.R)
@@ -63,7 +64,6 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   )
 7. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
 8. Run R code: devtools::install_github("oscarkjell/text")
-9. Alternative to step 7 and 8, run R code: reticulate::conda_remove("textrpp_condaenv")
 
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
