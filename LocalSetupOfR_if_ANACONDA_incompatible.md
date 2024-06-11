@@ -65,9 +65,10 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   "umap-learn==0.5.4",
   "hdbscan==0.8.33"
 )
-7. Run R code: reticulate::conda_remove("textrpp_condaenv","tokenizers==0.15.2")
-8. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
-9. Run R code: devtools::install_github("oscarkjell/text")
+7. Run R code: reticulate::conda_remove("textrpp_condaenv","tokenizers")
+8. Run R code: reticulate::conda_install("textrpp_condaenv","tokenizers==0.15.2")
+9. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
+10. Run R code: devtools::install_github("oscarkjell/text")
 
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
