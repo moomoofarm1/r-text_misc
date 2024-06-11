@@ -62,8 +62,8 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   #"scikit-learn==1.3.0", "scipy==0.10.1",  "transformers==4.36.0",
 8. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version) # This will install tokenizers==0.19.1 might due to transformers / huggingface_hub.
 9. Run R code: reticulate::py_list_packages("textrpp_condaenv") # huggingface_hub installs tokenizers 0.19.1
-10.Run R code: reticulate::conda_remove("textrpp_condaenv",c('transformers','tokenizers'))
-11. Run R code: reticulate::conda_install("textrpp_condaenv",c('transformers==4.36.0','tokenizers==0.15.2')); # huggingface_hub requires tokenizers between 15 and 19. 
+10. (NO NEED) Run R code: reticulate::conda_remove("textrpp_condaenv",c('transformers','tokenizers'))
+11. (NO NEED) Run R code: reticulate::conda_install("textrpp_condaenv",c('transformers==4.36.0','tokenizers==0.15.2')); # huggingface_hub requires tokenizers between 15 and 19. 
 12. Run R code: devtools::install_github("oscarkjell/text")
 
 # Further to remove some packages, like tokeinzers, if there are version clashes.
