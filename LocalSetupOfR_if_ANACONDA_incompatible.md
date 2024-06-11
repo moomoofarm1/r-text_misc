@@ -47,9 +47,9 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
    "torch==2.0.0", "flair==0.13.0"
    ), pip=TRUE)    
-6. Run R code:
+6. Run R code: # 4.36.0 for transformers
    rpp_version <- c(
-  "transformers==4.36.0",
+  "transformers==4.41.0", 
   "huggingface_hub==0.23.3",
   "numpy==1.26.0",
   "scipy==1.10.1",
