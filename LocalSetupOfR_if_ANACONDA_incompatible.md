@@ -69,7 +69,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 9. Run R code: devtools::install_github("oscarkjell/text")
 10. Run R code: text::textrpp_install(); text::textrpp_initialize(save_profile = TRUE)
 
-NOTE: This only works for R version (4.3)[https://mac.r-project.org/big-sur-arm64/R-4.3-branch/R-4.3-branch-arm64.pkg] at https://mac.r-project.org/ 
+NOTE: This only works for R version [4.3](https://mac.r-project.org/big-sur-arm64/R-4.3-branch/R-4.3-branch-arm64.pkg) at https://mac.r-project.org/ 
 
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
