@@ -48,6 +48,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   "transformers==4.36.0",
   "huggingface_hub==0.20.0",
   "numpy==1.26.0",
+  "scipy==1.10.1",
   "pandas==2.0.3",
   "nltk==3.6.7",
   "scikit-learn==1.3.0",
