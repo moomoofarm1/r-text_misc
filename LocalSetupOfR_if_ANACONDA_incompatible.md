@@ -66,7 +66,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   "hdbscan==0.8.33"
 )
 7. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version) # This will install tokenizers==0.19.1 might due to transformers / huggingface_hub.
-8. Run R code: Run the code in the latter half of the step1 below to uninstall tokenizers. After that, restart.
+8. Run R code: Run the code in the latter half of the step1 below to uninstall tokenizers. After that, run R: .rs.restartR()
 9. Run R code: reticulate::conda_install("textrpp_condaenv","tokenizers==0.15.2") 
 10. Run R code: devtools::install_github("oscarkjell/text")
 
