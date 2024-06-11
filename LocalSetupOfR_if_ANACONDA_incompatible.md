@@ -49,7 +49,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
    ), pip=TRUE)    
 6. Run R code: 
    rpp_version <- c(
-  "transformers==4.41.0", 
+  "transformers==4.36.0", 
   "huggingface_hub==0.23.3",
   "numpy==1.26.0",
   "scipy==1.10.1",
