@@ -48,8 +48,8 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
    "torch==2.0.0", "flair==0.13.0"
    ), pip=TRUE)    
 6. Run R code: 
-   rpp_version <- c(
-  "transformers==4.36.0", 
+ rpp_version <- c(
+  "transformers==4.36.0",
   "huggingface_hub==0.20.0",
   "numpy==1.26.0",
   "pandas==2.0.3",
@@ -62,9 +62,8 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   "jsonschema==4.19.2",
   "sentence-transformers==2.2.2",
   "umap-learn==0.5.4",
-  "scipy==1.10.1",
   "hdbscan==0.8.33"
-) # transformers==4.36.0
+  )
 8. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version) # This will install tokenizers==0.19.1 might due to transformers / huggingface_hub.
 9. Run R code: reticulate::py_list_packages("textrpp_condaenv") # huggingface_hub installs tokenizers 0.19.1
 10. Run R code: reticulate::conda_remove("textrpp_condaenv",c('transformers','tokenizers'))
