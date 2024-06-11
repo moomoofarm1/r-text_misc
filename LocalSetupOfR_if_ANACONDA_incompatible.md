@@ -49,8 +49,9 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
    ), pip=TRUE)    
 6. Run R code:
    rpp_version <- c(
-  "tokenizers==0.14.1",
+  "tokenizers==0.15.2",
   "transformers==4.36.0",
+  "huggingface_hub==0.23.0",
   "numpy==1.26.0",
   "scipy==1.10.1",
   "pandas==2.0.3",
@@ -64,7 +65,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
   "sentence-transformers==2.2.2",
   "umap-learn==0.5.4",
   "hdbscan==0.8.33"
-  )   #"huggingface_hub==0.20.0",
+   )
 8. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
 9. Run R code: devtools::install_github("oscarkjell/text")
 
