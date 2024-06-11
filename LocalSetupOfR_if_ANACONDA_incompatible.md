@@ -44,7 +44,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 2. Run R code: reticulate::install_miniconda(force=TRUE)
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9") 
 4. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
-   "torch==2.0.0", "flair==0.13.0", "tokenizers==1.18.0"
+   "torch==2.0.0", "flair==0.13.0", "tokenizers==0.15.2"
    ), pip=TRUE)
 6. Run R code:
    rpp_version <- c(
