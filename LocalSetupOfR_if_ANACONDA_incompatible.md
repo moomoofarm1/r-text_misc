@@ -4,6 +4,10 @@ output: html_document
 date: "2023-12-27"
 ---
 
+# Tools to show current status
+1. R: sessionInfo()
+2. Miniconda: reticulate::py_list_packages(envname='textrpp_condaenv')
+
 # Due to the incompatibility between miniconda and Anaconda, one has to uninstall all modules to reset the system.
 1. Uninstall all envs except root in Anaconda via the UI.
 2. Uninstall Anaconda;
