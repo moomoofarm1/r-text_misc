@@ -1,7 +1,7 @@
 ---
 title: "LocalSetupOfR_if_ANACONDA_incompatible.md"
 output: html_document
-date: "2023-12-27"
+date: "2024-09-04"
 ---
 
 # Tools to show current status
