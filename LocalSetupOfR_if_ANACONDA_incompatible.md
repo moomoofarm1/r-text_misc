@@ -38,6 +38,9 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 
 5. Uninstall R;
 6. Delete miniconda folder in reticulate::miniconda_path() (/Users/macID/Library/r-miniconda-arm64) in the Library (Mac only, in the terminal, with admin privacy)
+```
+unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with reticulate installed
+```
 7. Delete the R folder "/Library/Frameworks/R.framework" (in Mac).
 8. Install R 4.3.X (not work for R 4.4.X);
 9. Alternative to all above due to the python virtual env issues, just run R code: reticulate::conda_remove("textrpp_condaenv")
