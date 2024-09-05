@@ -74,7 +74,8 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 6. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
 7. Run R code: reticulate::use_condaenv(condaenv = "textrpp_condaenv")
 8. Run R code: devtools::install_github("oscarkjell/text")
-9. Run R code: text::textrpp_install(); text::textrpp_initialize(save_profile = TRUE)
+9. Backup code (DONOTRUN): text::textrpp_install();
+10. Run R code: text::textrpp_initialize(save_profile = TRUE)
 
 NOTE: Steps 7-9 might only work for R version [4.3](https://mac.r-project.org/big-sur-arm64/R-4.3-branch/R-4.3-branch-arm64.pkg) at https://mac.r-project.org/ 
 
