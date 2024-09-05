@@ -1,3 +1,5 @@
+# Issue https://github.com/OscarKjell/text/issues/192
+
 #reticulate::source_python("./huggingface_Interface3.py"
 #)
 
