@@ -4,7 +4,7 @@ output: html_document
 date: "2024-09-04"
 ---
 
-# Tools to show current status
+# Tools to show the current status
 1. R: sessionInfo()
 2. Miniconda: reticulate::py_list_packages(envname='textrpp_condaenv')
 
