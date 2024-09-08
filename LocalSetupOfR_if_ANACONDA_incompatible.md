@@ -36,8 +36,8 @@ head(pkgs.to.remove)
 sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 ```
 
-5. Uninstall R;
-6. Delete miniconda folder in reticulate::miniconda_path() (/Users/macID/Library/r-miniconda-arm64) in the Library (Mac only, in the terminal, with admin privacy)
+4. Uninstall R;
+5. Delete miniconda folder in reticulate::miniconda_path() (/Users/macID/Library/r-miniconda-arm64) in the Library (Mac only, in the terminal, with admin privacy)
 ```
 unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with reticulate installed
 ```
