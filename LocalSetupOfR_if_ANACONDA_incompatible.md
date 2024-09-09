@@ -73,7 +73,7 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 5. Run R code: rpp_version <- c("nltk==3.6.7")
 6. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
 7. Run R code: reticulate::use_condaenv(condaenv = "textrpp_condaenv")
-8. Run R code: devtools::install_github("oscarkjell/text")
+8. Run R code: devtools::install_github("oscarkjell/text") # need to install conda first, the command 'install.packages("text")' do not need to install conda first.
 9. Backup code (DONOTRUN): text::textrpp_install();
 10. Run R code: text::textrpp_initialize(save_profile = TRUE)
 
