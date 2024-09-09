@@ -16,8 +16,7 @@ text::textrpp_install() # Will install conda + python env.
 .rs.restartR()
 reticulate::use_condaenv(condaenv = "textrpp_condaenv")
 reticulate::py_run_string(
-  'import os, sys
-import warnings
+  'import warnings
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
 import torch
@@ -37,7 +36,8 @@ except:
     nltk.download("punkt")
 
 from nltk.tokenize import sent_tokenize
-'
+
+import os, sys'
 )
 
 
