@@ -79,6 +79,11 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 
 NOTE: Steps 7-9 might only work for R version [4.3](https://mac.r-project.org/big-sur-arm64/R-4.3-branch/R-4.3-branch-arm64.pkg) at https://mac.r-project.org/ 
 
+One step of all the above in the terminal: 
+```
+Rscript -e 'install.packages(c("devtools", "reticulate"));reticulate::install_miniconda(force=TRUE);reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9");reticulate::conda_install(envname="textrpp_condaenv", packages=c("torch==2.2.0", "flair==0.13.0"), pip=TRUE);rpp_version <- c("nltk==3.6.7");reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version);reticulate::use_condaenv(condaenv = "textrpp_condaenv");devtools::install_github("oscarkjell/text");text::textrpp_initialize(save_profile = TRUE);'
+```
+
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
 (May work or not. DONT TRY) Or run R code in the terminal: Rscript -e 'library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")'
