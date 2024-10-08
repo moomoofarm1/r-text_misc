@@ -183,7 +183,7 @@ class fullstopCorrt():
 
 
 # Runtime Warnings in v0.2
-# /Users/zh0832gu/Library/r-miniconda-arm64/envs/textrpp_condaenv/lib/python3.9/site-packages/transformers/pipelines/token_classification.py:135: UserWarning: `grouped_entities` is deprecated and will be removed in version v5.0.0, defaulted to `aggregation_strategy="AggregationStrategy.NONE"` instead.
+# ~/Library/r-miniconda-arm64/envs/textrpp_condaenv/lib/python3.9/site-packages/transformers/pipelines/token_classification.py:135: UserWarning: `grouped_entities` is deprecated and will be removed in version v5.0.0, defaulted to `aggregation_strategy="AggregationStrategy.NONE"` instead.
 #   warnings.warn(
 # huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
 # To disable this warning, you can either:
