@@ -42,7 +42,7 @@ sapply(pkgs.to.remove, remove.packages, lib = path.lib)
 unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with reticulate installed
 ```
 6. Delete the R folder "/Library/Frameworks/R.framework" (in Mac).
-7. Install R 4.3.X (not work for R 4.4.X);
+7. R 4.3.X usually works;
 8. Alternative to all above due to the python virtual env issues, just run R code: reticulate::conda_remove("textrpp_condaenv")
 
 # Further to setup the text package in R
