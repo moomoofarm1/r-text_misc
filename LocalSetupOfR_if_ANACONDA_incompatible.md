@@ -150,8 +150,8 @@ for (pkg in rpp_version) {
 
 ```
 # Virtual env dependencies
-installed_packages <- reticulate::py_run_string("import pkg_resources; packages = [str(pkg).split(' ')[0] for pkg in pkg_resources.working_set]")
-rpp_version <- installed_packages[installed_packages != "python"]
+installed_packages <- reticulate::py$packages
+rpp_version <- installed_packages[!(installed_packages %in% c("python", "Cython"))]
 for (pkg in rpp_version) {
   # Find the library path of the Python package
   lib_path <- tryCatch(
