@@ -120,7 +120,7 @@ system("for executable in /usr/local/bin/*; do otool -L \"$executable\" 2>/dev/n
 ```
 Or 
 ```
-# 
+# dependencies
 rpp_version <- c(
         "torch",
         "transformers",
@@ -136,7 +136,7 @@ rpp_version <- c(
         "jsonschema",
         "sentence_transformers",
         "flair",
-        "umap-learn",
+        "umap",
         "hdbscan",
         "scipy"
       )
@@ -146,4 +146,9 @@ for (pkg in rpp_version) {
     system(paste("otool -L", lib_path, "| grep libomp && echo 'Found OpenMP in'", pkg), intern = TRUE)
   }
 }
+```
+
+```
+# Virtual env dependencies
+
 ```
