@@ -120,6 +120,7 @@ system("for executable in /usr/local/bin/*; do otool -L \"$executable\" 2>/dev/n
 ```
 Or 
 ```
+# 
 rpp_version <- c(
         "torch",
         "transformers",
@@ -127,13 +128,13 @@ rpp_version <- c(
         "numpy",
         "pandas",
         "nltk",
-        "scikit-learn", 
+        "sklearn", 
         "datasets",
         "evaluate",
         "accelerate",
         "bertopic",
         "jsonschema",
-        "sentence-transformers",
+        "sentence_transformers",
         "flair",
         "umap-learn",
         "hdbscan",
