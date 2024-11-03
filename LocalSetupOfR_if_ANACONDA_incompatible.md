@@ -100,7 +100,7 @@ Rscript -e 'install.packages(c("devtools", "reticulate"));reticulate::install_mi
 2. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("tokenizers==0.14.1"), pip=TRUE)  # Due to that transformer 4.36.0 python packages require tokenizers version > 0.14.0. Might change in the future.
 
 # OpenMP issue
-Run in shell.
+Run in shell. (still testing)
 > OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
 >
 > OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program
