@@ -104,6 +104,12 @@ Run in shell. (still testing)
 > OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
 >
 > OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program
+
+```
+# Temporary solution
+Sys.setenv(KMP_DUPLICATE_LIB_OK = "TRUE") 
+```
+
 ```
 find /usr /Library /opt -name libomp.dylib 2>/dev/null # find openMP runtime
 # which R # find R executable
