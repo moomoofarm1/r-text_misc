@@ -175,3 +175,64 @@ for (pkg in rpp_version) {
   }
 }
 ```
+
+```
+py_code <- "import pkg_resources
+import importlib.util
+
+# Dictionary to hold package names and their corresponding import names
+packages = {}
+
+for pkg in pkg_resources.working_set:
+    pkg_name = str(pkg).split(' ')[0]
+    try:
+        # Check if the package can be imported with its own name
+        if importlib.util.find_spec(pkg_name) is not None:
+            packages[pkg_name] = pkg_name
+    except ImportError:
+        pass
+
+    # Handle common discrepancies manually for well-known packages
+    alternative_names = {
+        'Pillow': 'PIL',
+        'scikit-learn': 'sklearn',
+        'beautifulsoup4': 'bs4'
+    }
+
+    if pkg_name in alternative_names:
+        import_name = alternative_names[pkg_name]
+        if importlib.util.find_spec(import_name) is not None:
+            packages[pkg_name] = import_name
+
+    # If package name in lowercase works as import name, use that
+    elif importlib.util.find_spec(pkg_name.lower()) is not None:
+        packages[pkg_name] = pkg_name.lower()"
+
+reticulate::py_run_string(py_code)
+
+installed_packages <- reticulate::py$packages
+rpp_version <- installed_packages[!(installed_packages %in% c("python", "Cython"))]
+for (pkg in rpp_version) {
+  # Find the library path of the Python package
+  lib_path <- tryCatch(
+    {
+      system(paste("python -c \"import", pkg, "; print(", pkg, ".__file__)\""), intern = TRUE)
+    },
+    error = function(e) {
+      return(NULL)
+    }
+  )
+  
+  # Check if the library path is valid
+  if (!is.null(lib_path) && length(lib_path) > 0 && !grepl("Error", lib_path)) {
+    # Use 'otool' to check for OpenMP dependency
+    result <- system(paste("otool -L", lib_path, "2>/dev/null | grep libomp && echo 'Found OpenMP in'", pkg), intern = TRUE)
+    
+    # Print the result if any found
+    if (length(result) > 0) {
+      print(result)
+    }
+  }
+}
+
+```
