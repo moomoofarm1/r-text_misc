@@ -1,7 +1,7 @@
 ---
 title: "LocalSetupOfR_if_ANACONDA_incompatible.md"
 output: html_document
-date: "2024-09-04"
+date: "2024-11-03"
 ---
 
 # Tools to show the current status
@@ -48,8 +48,8 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 # Further to setup the text package in R
 [python version list](https://github.com/moomoofarm1/textPlot/blob/master/R/0_0_text_install.R)
 1. Run R code: install.packages(c("devtools", "reticulate","text"))
-2. Run R code: reticulate::install_miniconda(force=TRUE)
-3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9")
+<!--2. Run R code: reticulate::install_miniconda(force=TRUE)
+3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9") -->
 4. Run R code:
 ```
 reticulate::use_condaenv(condaenv = "textrpp_condaenv")
