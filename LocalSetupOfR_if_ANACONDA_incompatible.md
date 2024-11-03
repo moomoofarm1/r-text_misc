@@ -108,5 +108,9 @@ Run in shell.
 find /usr /Library /opt -name libomp.dylib 2>/dev/null # find openMP runtime
 # which R # find R executable
 otool -L $(which R) | grep libomp
+# find through all executable
+for executable in /usr/local/bin/*; do
+  otool -L "$executable" | grep libomp && echo "Found in: $executable"
+done
 
 ```
