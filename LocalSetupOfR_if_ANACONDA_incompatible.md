@@ -56,7 +56,7 @@ reticulate::use_condaenv(condaenv = "textrpp_condaenv")
 text::textrpp_install() # This is to ensure the environment for text package to be installed.
 text::textrpp_initialize(save_profile = TRUE)
 remove.packages("text")
-devtools::install_github("oscarkjell/text")
+devtools::install_github("oscarkjell/text") # Will not install the python packages.
 ```
 <!-- 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
    "torch==2.2.0"
