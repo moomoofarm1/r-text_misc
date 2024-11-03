@@ -47,13 +47,21 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 
 # Further to setup the text package in R
 [python version list](https://github.com/moomoofarm1/textPlot/blob/master/R/0_0_text_install.R)
-1. Run R code: install.packages(c("devtools", "reticulate"))
+1. Run R code: install.packages(c("devtools", "reticulate","text"))
 2. Run R code: reticulate::install_miniconda(force=TRUE)
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9")
-4. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
+4. Run R code:
+```
+reticulate::use_condaenv(condaenv = "textrpp_condaenv")
+text::textrpp_install() # This is to ensure the environment for text package to be installed.
+text::textrpp_initialize(save_profile = TRUE)
+remove.packages("text")
+devtools::install_github("oscarkjell/text")
+```
+<-- 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
    "torch==2.2.0"
    ), pip=TRUE)    
-<!--5. (DO NOT RUN) Run R code:
+6. (DO NOT RUN) Run R code:
    rpp_version <- c(
   "flair==0.13.0",
   "transformers==4.36.0",
@@ -70,7 +78,7 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
   "sentence-transformers==2.2.2",
   "umap-learn==0.5.4",
   "hdbscan==0.8.33"
-  )  -->
+  ) 
 5. Run R code: rpp_version <- c("nltk==3.6.7")
 6. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version)
 7. Run R code: reticulate::use_condaenv(condaenv = "textrpp_condaenv")
@@ -84,6 +92,7 @@ One step of all the above in the terminal:
 ```
 Rscript -e 'install.packages(c("devtools", "reticulate"));reticulate::install_miniconda(force=TRUE);reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9");reticulate::conda_install(envname="textrpp_condaenv", packages=c("torch==2.2.0", "flair==0.13.0"), pip=TRUE);rpp_version <- c("nltk==3.6.7");reticulate::conda_install(envname="textrpp_condaenv", packages=rpp_version);reticulate::use_condaenv(condaenv = "textrpp_condaenv");devtools::install_github("oscarkjell/text");text::textrpp_initialize(save_profile = TRUE);'
 ```
+ -->
 
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
