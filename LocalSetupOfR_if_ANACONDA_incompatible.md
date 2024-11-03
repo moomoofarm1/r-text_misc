@@ -106,4 +106,7 @@ Run in shell.
 > OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program
 ```
 find /usr /Library /opt -name libomp.dylib 2>/dev/null # find openMP runtime
+# which R # find R executable
+otool -L $(which R) | grep libomp
+
 ```
