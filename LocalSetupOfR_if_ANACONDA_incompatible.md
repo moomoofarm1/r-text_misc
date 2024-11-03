@@ -58,7 +58,7 @@ text::textrpp_initialize(save_profile = TRUE)
 remove.packages("text")
 devtools::install_github("oscarkjell/text")
 ```
-<-- 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
+<!-- 5. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c(
    "torch==2.2.0"
    ), pip=TRUE)    
 6. (DO NOT RUN) Run R code:
