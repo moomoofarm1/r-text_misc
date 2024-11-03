@@ -150,5 +150,28 @@ for (pkg in rpp_version) {
 
 ```
 # Virtual env dependencies
-
+installed_packages <- py_run_string("import pkg_resources; packages = [str(pkg).split(' ')[0] for pkg in pkg_resources.working_set]").packages
+rpp_version <- installed_packages[installed_packages != "python"]
+for (pkg in rpp_version) {
+  # Find the library path of the Python package
+  lib_path <- tryCatch(
+    {
+      system(paste("python -c \"import", pkg, "; print(", pkg, ".__file__)\""), intern = TRUE)
+    },
+    error = function(e) {
+      return(NULL)
+    }
+  )
+  
+  # Check if the library path is valid
+  if (!is.null(lib_path) && length(lib_path) > 0 && !grepl("Error", lib_path)) {
+    # Use 'otool' to check for OpenMP dependency
+    result <- system(paste("otool -L", lib_path, "2>/dev/null | grep libomp && echo 'Found OpenMP in'", pkg), intern = TRUE)
+    
+    # Print the result if any found
+    if (length(result) > 0) {
+      print(result)
+    }
+  }
+}
 ```
