@@ -97,4 +97,13 @@ Rscript -e 'install.packages(c("devtools", "reticulate"));reticulate::install_mi
 # Further to remove some packages, like tokeinzers, if there are version clashes.
 1. Run R code: library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")
 (May work or not. DONT TRY) Or run R code in the terminal: Rscript -e 'library(reticulate);envname <- "textrpp_condaenv";use_condaenv(envname);py_run_string("import pip");py_run_string("pip.main(['uninstall', 'tokenizers', '-y'])")'
-3. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("tokenizers==0.14.1"), pip=TRUE)  # Due to that transformer 4.36.0 python packages require tokenizers version > 0.14.0. Might change in the future.
+2. Run R code: reticulate::conda_install(envname="textrpp_condaenv", packages=c("tokenizers==0.14.1"), pip=TRUE)  # Due to that transformer 4.36.0 python packages require tokenizers version > 0.14.0. Might change in the future.
+
+# OpenMP issue
+Run in shell.
+> OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
+>
+> OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program
+```
+find /usr /Library /opt -name libomp.dylib 2>/dev/null # find openMP runtime
+```
