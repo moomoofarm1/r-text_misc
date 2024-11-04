@@ -107,6 +107,7 @@ Run in shell. (still testing)
 
 ```
 # Temporary solution
+Sys.setenv(OMP_NUM_THREADS = "1") 
 Sys.setenv(KMP_DUPLICATE_LIB_OK = "TRUE") 
 ```
 
