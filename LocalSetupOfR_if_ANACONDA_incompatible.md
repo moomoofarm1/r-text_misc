@@ -52,7 +52,7 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9") -->
 4. Run R code:
 ```
-reticulate::use_condaenv(condaenv = "textrpp_condaenv")
+# reticulate::use_condaenv(condaenv = "textrpp_condaenv") # NOTRUN only if necessary.
 text::textrpp_install() # This is to ensure the environment for text package to be installed.
 text::textrpp_initialize(save_profile = TRUE)
 remove.packages("text")
