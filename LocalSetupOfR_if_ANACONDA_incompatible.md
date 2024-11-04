@@ -107,7 +107,7 @@ Run in shell. (still testing)
 
 ```
 # Temporary solution
-Sys.setenv(KMP_DUPLICATE_LIB_OK = "FALSE") 
+Sys.setenv(KMP_DUPLICATE_LIB_OK = "TRUE") 
 ```
 
 ```
