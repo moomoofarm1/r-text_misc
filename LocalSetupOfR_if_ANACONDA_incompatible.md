@@ -54,6 +54,8 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 ```
 # reticulate::use_condaenv(condaenv = "textrpp_condaenv") # NOTRUN only if necessary.
 text::textrpp_install() # This is to ensure the environment for text package to be installed.
+Sys.setenv(OMP_NUM_THREADS = "1") 
+Sys.setenv(KMP_DUPLICATE_LIB_OK = "TRUE") 
 text::textrpp_initialize(save_profile = TRUE)
 remove.packages("text")
 devtools::install_github("oscarkjell/text") # Will not install the python packages.
