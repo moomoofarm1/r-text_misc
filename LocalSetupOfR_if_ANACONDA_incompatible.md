@@ -45,9 +45,27 @@ unlink(reticulate::miniconda_path(), recursive = TRUE, force = TRUE) # in R with
 7. R 4.3.X usually works;
 8. Alternative to all above due to the python virtual env issues, just run R code: reticulate::conda_remove("textrpp_condaenv")
 
-# Further to setup the text package in R
+# Further to setup the text package in R (in Mac M1, M2, ...)
 [python version list](https://github.com/moomoofarm1/textPlot/blob/master/R/0_0_text_install.R)
-1. Run R code: install.packages(c("devtools", "reticulate","text"))
+1. Run R code
+```
+install.packages(c("devtools", "reticulate","text"))
+# Have homebrew installed before doing eveything below
+# Install the latest Java jdk + jre
+system('brew install openjdk')
+# Register Java locations
+system('sudo echo 'export JAVA_HOME="$(/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home)"' >> ~/.zshrc')
+system('sudo echo 'export PATH="$JAVA_HOME/bin:$PATH"' >> ~/.zshrc')
+system('sudo source ~/.zshrc') # Or using 'nano ~/.zshrc' to add the text after the command 'export' from the above two lines at the botto of the file .zshrc.
+# Verify the lastest Java installation
+system('/opt/homebrew/opt/openjdk/bin/java -version') # It prints 'Java Version'.
+# Register Java globally
+system('sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk')
+# Final verification
+cat(system("echo $JAVA_HOME", intern = TRUE), "\n")
+cat(system("which java", intern = TRUE), "\n")
+cat(system("java -version", intern = TRUE), "\n")
+```
 <!--2. Run R code: reticulate::install_miniconda(force=TRUE)
 3. Run R code: reticulate::conda_create(envname="textrpp_condaenv", python_version="3.9") -->
 4. Run R code:
